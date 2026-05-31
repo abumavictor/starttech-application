@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - 'Server/**'
+      - 'backend/**'
   pull_request:
     branches: [ "master" ]
     paths:
-      - 'Server/**'
+      - 'backend/**'
   workflow_dispatch: {}
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Server/MuchToDo
+        working-directory: backend/MuchToDo
 
     steps:
     - name: Checkout
@@ -47,7 +47,7 @@ jobs:
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     defaults:
       run:
-        working-directory: Server/MuchToDo
+        working-directory: backend/MuchToDo
 
     steps:
     - name: Checkout

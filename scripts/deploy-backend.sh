@@ -3,7 +3,7 @@ set -e
 
 echo "Deploying backend to EC2..."
 
-cd Server/MuchToDo
+cd backend/MuchToDo
 
 docker build -t starttech-backend .
 

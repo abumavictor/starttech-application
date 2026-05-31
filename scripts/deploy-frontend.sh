@@ -3,7 +3,7 @@ set -e
 
 echo "Deploying frontend to S3..."
 
-cd Client
+cd frontend
 npm ci
 npm run build
 
