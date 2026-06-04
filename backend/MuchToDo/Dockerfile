@@ -1,9 +1,10 @@
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 WORKDIR /app
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod download -x 2>&1 || true
+RUN go mod tidy
 COPY . .
-RUN go build -o main ./cmd/api/...
+RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/api/...
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
