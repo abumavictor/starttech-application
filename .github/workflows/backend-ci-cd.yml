@@ -86,16 +86,11 @@ jobs:
         aws ssm send-command \
           --targets "Key=tag:Name,Values=starttech-backend" \
           --document-name "AWS-RunShellScript" \
-          --parameters commands=[
-            "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REGISTRY }}/starttech-backend:$IMAGE_TAG",
-            "docker stop starttech-backend || true",
-            "docker rm starttech-backend || true",
-            "docker run -d --name starttech-backend -p 80:8080 ${{ secrets.ECR_REGISTRY }}/starttech-backend:$IMAGE_TAG"
-          ]
+          --parameters commands=["aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}","docker pull ${{ secrets.ECR_REGISTRY }}/starttech-backend:latest","docker stop starttech-backend || true","docker rm starttech-backend || true","docker run -d --name starttech-backend -p 80:8080 ${{ secrets.ECR_REGISTRY }}/starttech-backend:latest"]
 
     - name: Run smoke test
       run: |
         sleep 30
         aws elbv2 describe-target-health \
           --target-group-arn ${{ secrets.TARGET_GROUP_ARN }}
+
