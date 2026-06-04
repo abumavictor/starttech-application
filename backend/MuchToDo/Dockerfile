@@ -1,9 +1,8 @@
-FROM golang:1.23-alpine AS builder
+FROM golang:1.24-alpine AS builder
 RUN apk add --no-cache git
 WORKDIR /app
 COPY . .
-RUN go mod tidy && go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -o main ./cmd/api
+RUN GONOSUMCHECK=* GOFLAGS=-insecure CGO_ENABLED=0 GOOS=linux go build -mod=mod -o main ./cmd/api
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
