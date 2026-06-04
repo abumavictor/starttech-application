@@ -49,7 +49,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: us-east-1
       run: |
-        aws s3 sync dist/ s3://starttech-frontend-prod --delete
+        aws s3 sync dist/ s3://starttech-frontend-prod-960154456358 --delete
 
     - name: Invalidate CloudFront cache
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
